@@ -1,1 +1,1 @@
-# JuegoSnakepy
+# JuegoSnake
