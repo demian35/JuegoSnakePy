@@ -1,32 +1,62 @@
-import pygame , sys,time,random #bibliotecas necesarias para el desarrollo
+import pygame, sys, time, random
 
-#inicializamos pygame
 pygame.init()
 
+play_surface = pygame.display.set_mode((500, 500))
 
-#interfaz proporcionada por la biblioteca pygame le pasamos las medidas del alto y ancho
-interfaz_game=pygame.display.set_mode((500,500))
 
-#fps del juego
-fps=pygame.time.Clock()
+fps = pygame.time.Clock()
+
+
+
+
 
 def main():
-    headSnake=[100,50] #cabeza de la serpiente que ocupara un pixel o cuadrito [x,y]
-    snakeBody=[[100,50],[90,50],[80,50]] #arrreglo de pixeles que formara la serpiente
 
-    run=True
+    snakehead = [100, 50]
+    snakebody = [[100,50],[90,50],[80,50]]
+    cambio = "RIGHT"
+    run = True
+  
 
-    while run: ##mientras se este ejecutando run
-        for event in pygame.event.get(): ##for para controlar los eventos que ocurran durante la ejecucion
-            if event.type== pygame.QUIT: ##si el usuario se sale run cambia a falso y la ejecucio termina
-                run=False
+    while run:
 
-        interfaz_game.fill((75,83,32)) #pintamos la interfaz asignandole un color en la escala rgb
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    cambio = "RIGHT"
+                if event.key == pygame.K_LEFT:
+                    cambio = "LEFT"
+                if event.key == pygame.K_UP:
+                    cambio = "UP"
+                if event.key == pygame.K_DOWN:
+                    cambio = "DOWN"
+        if cambio == "RIGHT":
+            snakehead[0] += 10
+        if cambio == "LEFT":
+            snakehead[0] -= 10
+        if cambio == "UP":
+            snakehead[1] -= 10
+        if cambio == "DOWN":
+            snakehead[1] += 10
 
-        #llamadas para abrir la interfaz
+        snakebody.insert(0, list(snakehead))
+
+       
+
+        play_surface.fill((0,0,0))
+
+        for pos in snakebody:
+            pygame.draw.rect(play_surface,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10))
+        
+       
+
+
+
         pygame.display.flip()
         fps.tick(10)
-   #llamada a pygame para que se cierre el juego en caso de que el usuario salga
 main()
 
-pygame.quit() ##efectua el cierre del programa cuando se pica el icono X
+pygame.quit()
