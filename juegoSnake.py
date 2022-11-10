@@ -1,11 +1,13 @@
-import pygame, sys, time, random
+import pygame, sys, time, random #Bibliotecas a usar en este programa
 
+#inicializamos pygame
 pygame.init()
 
-play_surface = pygame.display.set_mode((500, 500))
+#variables globales
+interfaz_vista = pygame.display.set_mode((500, 500)) ##vista del juego
 
 
-fps = pygame.time.Clock()
+fps = pygame.time.Clock() #fps del juego
 
 
 
@@ -13,26 +15,27 @@ fps = pygame.time.Clock()
 
 def main():
 
-    snakehead = [100, 50]
-    snakebody = [[100,50],[90,50],[80,50]]
+    snakehead = [100, 50] #pixel que pintara la cabeza de la serpiente
+    snakebody = [[100,50],[90,50],[80,50]] #arreglo de pixels que formaran la serpiente
     cambio = "RIGHT"
     run = True
   
 
-    while run:
+    while run: #mientras run sea true
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pygame.event.get(): #for para controlar los eventos que ocurran durante el juego
+            if event.type == pygame.QUIT: #cuando se presione la X de salir hacemos run False y se acaba la ejecucion
                 run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
+            if event.type == pygame.KEYDOWN: #controlador de teclas 
+                if event.key == pygame.K_RIGHT or event.key==pygame.K_d: #tecla d o flecha derecha movemos derecha
                     cambio = "RIGHT"
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT or event.key==pygame.K_a:  #tecla a o flecha izq movemos izq
                     cambio = "LEFT"
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP or event.key==pygame.K_w: #tecla w o flecha up movemos up
                     cambio = "UP"
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN or event.key==pygame.K_s: #tecla s o flecha abajo movemos abajo
                     cambio = "DOWN"
+        #efectuamos los movientos en el plano             
         if cambio == "RIGHT":
             snakehead[0] += 10
         if cambio == "LEFT":
@@ -42,21 +45,24 @@ def main():
         if cambio == "DOWN":
             snakehead[1] += 10
 
+        #insertamos a la serpiente
         snakebody.insert(0, list(snakehead))
 
        
-
-        play_surface.fill((0,0,0))
+        #pintamos el fondo de la vista de acuerdo al RGB
+        interfaz_vista.fill((66,70,50))
 
         for pos in snakebody:
-            pygame.draw.rect(play_surface,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10))
+            #Pintamos a la serpiente con un color RGB
+            pygame.draw.rect(interfaz_vista,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
         
        
 
 
-
+        ##Mostramos la vista
         pygame.display.flip()
         fps.tick(10)
 main()
 
+#permite llevar a cabo el cierre de la aplicacion
 pygame.quit()
