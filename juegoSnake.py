@@ -5,7 +5,7 @@ pygame.init()
 
 
 #interfaz proporcionada por la biblioteca pygame le pasamos las medidas del alto y ancho
-interfaz_game=pygame.display.set_mode((600,600))
+interfaz_game=pygame.display.set_mode((500,500))
 
 #fps del juego
 fps=pygame.time.Clock()
