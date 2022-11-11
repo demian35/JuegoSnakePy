@@ -6,6 +6,7 @@ pygame.init()
 #variables globales
 interfaz_vista = pygame.display.set_mode((500, 500)) ##vista del juego
 
+fuente=pygame.font.Font(None,30) #fuente para poner la puntuacion en pantalla
 
 fps = pygame.time.Clock() #fps del juego
 
@@ -67,10 +68,11 @@ def main():
         for pos in snakebody:
             #Pintamos a la serpiente con un color RGB
             pygame.draw.rect(interfaz_vista,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
-            pygame.draw.rect(interfaz_vista,(255,128,0), pygame.Rect(punto_food[0], punto_food[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
+        
+        pygame.draw.rect(interfaz_vista,(255,128,0), pygame.Rect(punto_food[0], punto_food[1], 10, 10)) #pintamos el puntito de la comida en el plano
        
-
-
+        text=fuente.render(str(score),0,(255,0,0))#rederizamos el marcador para esto casteamos al score para pasar de int a string, y le asignamos un color RGB
+        interfaz_vista.blit(text,(480,20)) # le indicamos en que parte del plano queremos imprimir el marcador
         ##Mostramos la vista
         pygame.display.flip()
         fps.tick(10)
