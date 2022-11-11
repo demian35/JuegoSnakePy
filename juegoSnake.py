@@ -73,9 +73,14 @@ def main():
        
         text=fuente.render(str(score),0,(255,0,0))#rederizamos el marcador para esto casteamos al score para pasar de int a string, y le asignamos un color RGB
         interfaz_vista.blit(text,(480,20)) # le indicamos en que parte del plano queremos imprimir el marcador
+
+        #ifs para cambiar la dificultad de acuerdo a la puntuacion
+        if score < 10:
+            fps.tick(10)
+        if score >=10:
+            fps.tick(20)
         ##Mostramos la vista
         pygame.display.flip()
-        fps.tick(10)
 main()
 
 #permite llevar a cabo el cierre de la aplicacion
