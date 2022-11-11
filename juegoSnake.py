@@ -22,7 +22,8 @@ def main():
     snakebody = [[100,50],[90,50],[80,50]] #arreglo de pixels que formaran la serpiente
     cambio = "RIGHT"
     run = True
-  
+    punto_food=comida() #actualizamos el valor de punto_food con lo que se genere en comida
+    score=0
 
     while run: #mientras run sea true
 
@@ -50,7 +51,14 @@ def main():
 
         #insertamos a la serpiente
         snakebody.insert(0, list(snakehead))
-        snakebody.pop()#funcion pop nos permite eliminar los pixeles previamente pintados al moverse
+
+        #si la cabeza toca la comida
+        if snakehead==punto_food:
+            punto_food=comida() #actualizamos a punto_food para cambiar de posicion la comida
+            score +=1 #ganamos un punto
+            print(score) #imprimimos la puntuacion
+        else: 
+            snakebody.pop()#funcion pop nos permite eliminar los pixeles previamente pintados al moverse
 
        
         #pintamos el fondo de la vista de acuerdo al RGB
@@ -59,7 +67,7 @@ def main():
         for pos in snakebody:
             #Pintamos a la serpiente con un color RGB
             pygame.draw.rect(interfaz_vista,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
-        
+            pygame.draw.rect(interfaz_vista,(255,128,0), pygame.Rect(punto_food[0], punto_food[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
        
 
 
