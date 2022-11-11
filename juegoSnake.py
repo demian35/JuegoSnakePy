@@ -9,8 +9,11 @@ interfaz_vista = pygame.display.set_mode((500, 500)) ##vista del juego
 
 fps = pygame.time.Clock() #fps del juego
 
-
-
+##funcion para genere comida en algun punto del mapa
+def comida():
+    punto_rdm=random.randint(0,49)*10#punto aleatorio generado en el plano
+    punto_food=[punto_rdm,punto_rdm] ##a la comida le pasamos el punto aleatorio generado previamente tanto en su cord x y su cord y
+    return punto_food
 
 
 def main():
@@ -19,7 +22,8 @@ def main():
     snakebody = [[100,50],[90,50],[80,50]] #arreglo de pixels que formaran la serpiente
     cambio = "RIGHT"
     run = True
-  
+    punto_food=comida() #actualizamos el valor de punto_food con lo que se genere en comida
+    score=0
 
     while run: #mientras run sea true
 
@@ -35,7 +39,7 @@ def main():
                     cambio = "UP"
                 if event.key == pygame.K_DOWN or event.key==pygame.K_s: #tecla s o flecha abajo movemos abajo
                     cambio = "DOWN"
-        #efectuamos los movientos en el plano             
+        #efectuamos los movientos en el plano pintando 10 pixeles en el con cada tecla         
         if cambio == "RIGHT":
             snakehead[0] += 10
         if cambio == "LEFT":
@@ -48,6 +52,14 @@ def main():
         #insertamos a la serpiente
         snakebody.insert(0, list(snakehead))
 
+        #si la cabeza toca la comida
+        if snakehead==punto_food:
+            punto_food=comida() #actualizamos a punto_food para cambiar de posicion la comida
+            score +=1 #ganamos un punto
+            print(score) #imprimimos la puntuacion
+        else: 
+            snakebody.pop()#funcion pop nos permite eliminar los pixeles previamente pintados al moverse
+
        
         #pintamos el fondo de la vista de acuerdo al RGB
         interfaz_vista.fill((66,70,50))
@@ -55,7 +67,7 @@ def main():
         for pos in snakebody:
             #Pintamos a la serpiente con un color RGB
             pygame.draw.rect(interfaz_vista,(250,0,0), pygame.Rect(pos[0], pos[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
-        
+            pygame.draw.rect(interfaz_vista,(255,128,0), pygame.Rect(punto_food[0], punto_food[1], 10, 10)) #plasmamos en el plano el rectangulo que funjira como serpiente
        
 
 
