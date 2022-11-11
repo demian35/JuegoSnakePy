@@ -9,8 +9,11 @@ interfaz_vista = pygame.display.set_mode((500, 500)) ##vista del juego
 
 fps = pygame.time.Clock() #fps del juego
 
-
-
+##funcion para genere comida en algun punto del mapa
+def comida():
+    punto_rdm=random.randint(0,49)*10#punto aleatorio generado en el plano
+    punto_food=[punto_rdm,punto_rdm] ##a la comida le pasamos el punto aleatorio generado previamente tanto en su cord x y su cord y
+    return punto_food
 
 
 def main():
