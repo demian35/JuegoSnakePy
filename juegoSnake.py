@@ -35,7 +35,7 @@ def main():
                     cambio = "UP"
                 if event.key == pygame.K_DOWN or event.key==pygame.K_s: #tecla s o flecha abajo movemos abajo
                     cambio = "DOWN"
-        #efectuamos los movientos en el plano             
+        #efectuamos los movientos en el plano pintando 10 pixeles en el con cada tecla         
         if cambio == "RIGHT":
             snakehead[0] += 10
         if cambio == "LEFT":
@@ -47,6 +47,7 @@ def main():
 
         #insertamos a la serpiente
         snakebody.insert(0, list(snakehead))
+        snakebody.pop()#funcion pop nos permite eliminar los pixeles previamente pintados al moverse
 
        
         #pintamos el fondo de la vista de acuerdo al RGB
