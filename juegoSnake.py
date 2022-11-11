@@ -79,6 +79,13 @@ def main():
             fps.tick(10)
         if score >=10:
             fps.tick(20)
+
+        if snakehead[0] <= 0 or snakehead[0] >=500: #si tocamos una de las paredes en el eje x perdemos
+            run=False 
+            print("Juego Terminado")
+        if snakehead[1] <= 0 or snakehead[1] >=500: #si tocamos una de las paredes en el eje y perdemos
+            run=False 
+            print("Juego Terminado")    
         ##Mostramos la vista
         pygame.display.flip()
 main()
